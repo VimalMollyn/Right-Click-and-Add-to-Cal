@@ -1,6 +1,6 @@
 # Right Click → Add to Calendar
 
-Select any text, right-click, and add it to your Apple Calendar. Uses Gemini Flash to parse event details automatically.
+Select any text, right-click, and add it to your Apple Calendar. Uses Gemini Flash to parse event details automatically. Made with Claude Code when I was bored in class.
 
 ![Right-click Services menu showing "Add to Calendar"](addtocal_herofig.png)
 
