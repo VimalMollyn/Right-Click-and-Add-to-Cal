@@ -1,0 +1,16 @@
+# Environment
+RightClickAddToCalendar/.env
+
+# Xcode
+xcuserdata/
+*.xcworkspace
+DerivedData/
+build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.moved-aside
+
+# macOS
+.DS_Store
