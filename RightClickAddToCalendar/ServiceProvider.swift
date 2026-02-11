@@ -8,7 +8,8 @@ final class ServiceProvider: NSObject {
     private var previewWindow: NSWindow?
 
     @objc func handleSelectedText(_ pboard: NSPasteboard, userData: String, error: AutoreleasingUnsafeMutablePointer<NSString>) {
-        guard let text = pboard.string(forType: .string), !text.isEmpty else {
+        let text = extractTextWithURLs(from: pboard)
+        guard !text.isEmpty else {
             error.pointee = "No text was selected." as NSString
             return
         }
@@ -23,6 +24,57 @@ final class ServiceProvider: NSObject {
                 showErrorWindow(message: error.localizedDescription)
             }
         }
+    }
+
+    private func extractTextWithURLs(from pboard: NSPasteboard) -> String {
+        // Try HTML first — preserves hyperlink URLs
+        if let html = pboard.string(forType: .html) {
+            let text = extractTextFromHTML(html)
+            if !text.isEmpty { return text }
+        }
+
+        // Try RTF — also preserves hyperlink URLs
+        if let rtfData = pboard.data(forType: .rtf),
+           let attrString = NSAttributedString(rtf: rtfData, documentAttributes: nil) {
+            let text = extractTextFromAttributedString(attrString)
+            if !text.isEmpty { return text }
+        }
+
+        // Fall back to plain text
+        return pboard.string(forType: .string) ?? ""
+    }
+
+    private func extractTextFromHTML(_ html: String) -> String {
+        guard let data = html.data(using: .utf8),
+              let attrString = NSAttributedString(
+                html: data,
+                options: [.characterEncoding: String.Encoding.utf8.rawValue],
+                documentAttributes: nil
+              ) else { return "" }
+        return extractTextFromAttributedString(attrString)
+    }
+
+    private func extractTextFromAttributedString(_ attrString: NSAttributedString) -> String {
+        var result = attrString.string
+        var urlInsertions: [(index: Int, url: String)] = []
+
+        attrString.enumerateAttribute(.link, in: NSRange(location: 0, length: attrString.length)) { value, range, _ in
+            guard let url = (value as? URL)?.absoluteString ?? (value as? String) else { return }
+            let linkText = (attrString.string as NSString).substring(with: range)
+            // Only add URL if it's not already visible in the text
+            if !linkText.contains(url) && !result.contains(url) {
+                let insertAt = range.location + range.length
+                urlInsertions.append((insertAt, url))
+            }
+        }
+
+        // Insert URLs in reverse order so indices stay valid
+        for insertion in urlInsertions.reversed() {
+            let idx = result.index(result.startIndex, offsetBy: min(insertion.index, result.count))
+            result.insert(contentsOf: " (\(insertion.url))", at: idx)
+        }
+
+        return result
     }
 
     private func showLoadingWindow() {

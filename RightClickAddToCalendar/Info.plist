@@ -35,6 +35,8 @@
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
+				<string>NSHTMLPboardType</string>
+				<string>NSRTFPboardType</string>
 			</array>
 			<key>NSMessage</key>
 			<string>handleSelectedText</string>
