@@ -24,7 +24,8 @@ final class CalendarService {
         ekEvent.endDate = calendarEvent.endDate
         ekEvent.isAllDay = calendarEvent.isAllDay
         ekEvent.location = calendarEvent.location
-        ekEvent.notes = calendarEvent.notes
+        let suffix = "\n\nAdded by RightClickAddToCalendar"
+        ekEvent.notes = (calendarEvent.notes ?? "") + suffix
         ekEvent.calendar = eventStore.defaultCalendarForNewEvents
 
         try eventStore.save(ekEvent, span: .thisEvent)

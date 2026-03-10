@@ -49,18 +49,24 @@ final class GeminiService {
         df.dateFormat = "yyyy-MM-dd HH:mm:ss EEEE"
         df.locale = Locale(identifier: "en_US_POSIX")
         let currentDateStr = df.string(from: now)
+        let localTZ = TimeZone.current
+        let tzName = localTZ.identifier
+        let tzAbbrev = localTZ.abbreviation() ?? "UTC"
 
         let prompt = """
         Extract calendar event details from the following text. The current date and time is \(currentDateStr).
+        The user's local timezone is \(tzName) (\(tzAbbrev)).
 
         Return ONLY a JSON object with these fields:
         - "title": string (event title)
         - "start_date": string (ISO 8601 format, e.g. "2025-03-15T14:00:00")
         - "end_date": string (ISO 8601 format; if no end time specified, set 1 hour after start)
         - "location": string or null
-        - "notes": string or null (any extra details)
+        - "notes": string or null (any extra details, include any URLs or links found in the text)
         - "is_all_day": boolean
 
+        IMPORTANT: Convert all times to the user's local timezone (\(tzAbbrev)). For example, if the text says "16:00 GMT" and the user is in EST, return "11:00" in EST.
+        All returned dates/times must be in the user's local timezone with NO timezone offset suffix.
         If the year is not specified, assume the current or next occurrence.
         If only a date is given with no time, set is_all_day to true and use T00:00:00 for both start and end.
 
