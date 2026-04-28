@@ -42,7 +42,7 @@ final class GeminiService {
             throw GeminiError.missingAPIKey
         }
 
-        let url = URL(string: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\(apiKey)")!
+        let url = URL(string: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=\(apiKey)")!
 
         let now = Date()
         let df = DateFormatter()
