@@ -15,6 +15,9 @@
 		AA000006 /* EventPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000016 /* EventPreviewView.swift */; };
 		AA000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA000017 /* Assets.xcassets */; };
 		AA000008 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = AA000018 /* .env */; };
+		AA000080 /* EventParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000081 /* EventParser.swift */; };
+		AA000082 /* AppleFoundationModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000083 /* AppleFoundationModelService.swift */; };
+		AA000090 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000091 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		AA000018 /* .env */ = {isa = PBXFileReference; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
 		AA000019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA000020 /* RightClickAddToCalendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightClickAddToCalendar.entitlements; sourceTree = "<group>"; };
+		AA000081 /* EventParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParser.swift; sourceTree = "<group>"; };
+		AA000083 /* AppleFoundationModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFoundationModelService.swift; sourceTree = "<group>"; };
+		AA000091 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +59,12 @@
 		AA000041 /* RightClickAddToCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				AA000091 /* main.swift */,
 				AA000011 /* RightClickAddToCalendarApp.swift */,
 				AA000012 /* ServiceProvider.swift */,
 				AA000013 /* GeminiService.swift */,
+				AA000083 /* AppleFoundationModelService.swift */,
+				AA000081 /* EventParser.swift */,
 				AA000014 /* CalendarService.swift */,
 				AA000015 /* CalendarEvent.swift */,
 				AA000016 /* EventPreviewView.swift */,
@@ -145,9 +154,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA000090 /* main.swift in Sources */,
 				AA000001 /* RightClickAddToCalendarApp.swift in Sources */,
 				AA000002 /* ServiceProvider.swift in Sources */,
 				AA000003 /* GeminiService.swift in Sources */,
+				AA000082 /* AppleFoundationModelService.swift in Sources */,
+				AA000080 /* EventParser.swift in Sources */,
 				AA000004 /* CalendarService.swift in Sources */,
 				AA000005 /* CalendarEvent.swift in Sources */,
 				AA000006 /* EventPreviewView.swift in Sources */,

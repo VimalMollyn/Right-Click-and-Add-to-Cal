@@ -1,6 +1,6 @@
 import Foundation
 
-final class GeminiService {
+final class GeminiService: EventParser {
     private let apiKey: String
 
     init() {

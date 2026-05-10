@@ -3,7 +3,6 @@ import SwiftUI
 
 @MainActor
 final class ServiceProvider: NSObject {
-    private let geminiService = GeminiService()
     private let calendarService = CalendarService()
     private var previewWindow: NSWindow?
 
@@ -18,7 +17,8 @@ final class ServiceProvider: NSObject {
 
         Task {
             do {
-                let event = try await geminiService.parseEvent(from: text)
+                let parser = EventParserFactory.make()
+                let event = try await parser.parseEvent(from: text)
                 showPreviewWindow(event: event)
             } catch {
                 showErrorWindow(message: error.localizedDescription)
